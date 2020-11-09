@@ -1,4 +1,4 @@
-package tictactoe;
+package Lotfi_TictTacToe;
 
 import java.io.IOException;
 
@@ -13,9 +13,11 @@ import java.io.IOException;
  * 
  */
 public class RandomPlayer extends Player{
-
+	protected RandomGenerator randomGenerator;
+	private int randomNumOne,randomNumTwo; 
 	public RandomPlayer(String name, char mark) {
 		super(name, mark);
+		randomGenerator = new RandomGenerator();
 	}
 
 	/**
@@ -24,24 +26,16 @@ public class RandomPlayer extends Player{
 	@Override
 	protected void makeMove() throws IOException {
 		
-		int randomNumOne;
-		int randomNumTwo;
-		RandomGenerator randomGenerator = new RandomGenerator();
-		
 		while(true) {
 		
 		randomNumOne = randomGenerator.discrete(0, 2);
 		randomNumTwo = randomGenerator.discrete(0, 2);
 		
-		
-		if(board.getMark(randomNumOne , randomNumTwo) != ' ') {
-			continue;
-		}
-		else {
-			System.out.println();
+		if(board.getMark(randomNumOne , randomNumTwo) == ' ') {
 			board.addMark(randomNumOne, randomNumTwo, mark);
 			break;
 		}
+		
 		}
 	}
 	
@@ -54,49 +48,13 @@ public class RandomPlayer extends Player{
 	 * @throws IOException
 	 */
 	protected void play() throws IOException {
-		
-		if(board.xWins() == false && board.oWins() == false && board.isFull() == false) {
-			// Player makes move
-			makeMove();
-			// Displays the board after each move
-			board.display();
-		}
-		
+
 		// Checks for winner
-		if(board.oWins() == true && mark == 'O') {
-			System.out.print("\nTHE GAME IS OVER: ");
-			System.out.println(name + " is the winner!");
-			System.out.println("Game Ended ...");
+		if(checkWinner())
 			return;
-		}
-		else if(board.oWins() == true && opponent.getMark() == 'O') {
-			System.out.print("\nTHE GAME IS OVER: ");
-			System.out.println(opponent.getName() + " is the winner!");
-			System.out.println("Game Ended ...");
-			return;
-		}
-		else if(board.xWins() == true && mark == 'X') {
-			System.out.print("\nTHE GAME IS OVER: ");
-			System.out.println(name + " is the winner!");
-			System.out.println("Game Ended ...");
-			return;
-		}
-		else if(board.xWins() == true && opponent.getMark() == 'X') {
-			System.out.print("\nTHE GAME IS OVER: ");
-			System.out.println(opponent.getName() + " is the winner!");
-			System.out.println("Game Ended ...");
-			return;
-		}
-		else if(board.isFull() == true && board.xWins() == false && board.oWins() == false) {
-			System.out.print("\nTHE GAME IS OVER: ");
-			System.out.println("The game ended in a tie!");
-			System.out.println("Game Ended ...");
-			return;
-		}
-		
+		makeMove();
+		board.display();
 		// Passes turn to other player
 		opponent.play();
-		
-		return;
 	}
 }

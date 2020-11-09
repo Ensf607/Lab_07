@@ -1,4 +1,4 @@
-package tictactoe;
+package Lotfi_TictTacToe;
 import java.io.*;
 
 /**
@@ -36,6 +36,39 @@ public abstract class Player {
 	
 	protected abstract void play() throws IOException;
 	protected abstract void makeMove() throws IOException; 
+	public boolean checkWinner() {
+		if(board.oWins()  && mark == 'O') {
+			System.out.print("\nTHE GAME IS OVER: ");
+			System.out.println(name + " is the winner!");
+			System.out.println("Game Ended ...");
+			return true;
+		}
+		else if(board.oWins() && opponent.getMark() == 'O') {
+			System.out.print("\nTHE GAME IS OVER: ");
+			System.out.println(opponent.getName() + " is the winner!");
+			System.out.println("Game Ended ...");
+			return true;
+		}
+		else if(board.xWins()  && mark == 'X') {
+			System.out.print("\nTHE GAME IS OVER: ");
+			System.out.println(name + " is the winner!");
+			System.out.println("Game Ended ...");
+			return true;
+		}
+		else if(board.xWins()  && opponent.getMark() == 'X') {
+			System.out.print("\nTHE GAME IS OVER: ");
+			System.out.println(opponent.getName() + " is the winner!");
+			System.out.println("Game Ended ...");
+			return true;
+		}
+		else if(board.isFull() ) {
+			System.out.print("\nTHE GAME IS OVER: ");
+			System.out.println("The game ended in a tie!");
+			System.out.println("Game Ended ...");
+			return true;
+		}
+		return false;
+	}
 	
 	
 	/**

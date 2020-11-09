@@ -1,4 +1,4 @@
-package tictactoe;
+package Lotfi_TictTacToe;
 import java.io.IOException;
 
 /**
